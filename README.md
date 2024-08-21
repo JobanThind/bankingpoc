@@ -2,31 +2,28 @@
 
 ## Running the Application
 
-1. **Clone the Repository**
+**Clone the Repository**
 
-```bash
-https://github.com/JobanThind/bankingpoc.git
-```
+   ```bash
+   git clone https://github.com/JobanThind/bankingpoc.git
+   cd bankingpoc
 
-2. Build and Run the server.java file
-The application will run on http://localhost:8080 by default.
+Build and run the server.java file. The application will run on http://localhost:8080 by default.
 
 Configuring the Database
 In-Memory Database (Default)
-No additional setup required.
+No additional setup is required.
 
 PostgreSQL Configuration
-Install PostgreSQL
-Update Configuration
-Open src/main/resources/application.properties.
-Comment out the  line - spring.profiles.active=local
-
-Create a PostgreSQL database named bankpoc with the credentials:
-
+1.Install PostgreSQL
+2.Update Configuration
+3.Open src/main/resources/application.properties.
+4.Comment out the first line
+spring.profiles.active=local
+5.Create a PostgreSQL database named bankpoc with the following credentials:
 Username: postgres
 Password: connect
 
-
-Assumptions for apis
+**Assumptions for APIs**
 Balance must be greater than 0 when creating an account.
-Transaction must be of at least 1 unit.
+Transactions must be of at least 1 unit.

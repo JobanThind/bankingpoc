@@ -9,7 +9,7 @@ import java.math.BigDecimal;
 @Getter
 @Setter
 @Builder
-public class CreateAccountResponse {
+public class CreateAccountResponseDTO {
     Long id;
     String email;
     BigDecimal balance;

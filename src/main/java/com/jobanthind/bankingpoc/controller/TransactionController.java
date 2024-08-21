@@ -1,13 +1,15 @@
 package com.jobanthind.bankingpoc.controller;
 
-import com.jobanthind.bankingpoc.dto.TransactionHistoryResponse;
-import com.jobanthind.bankingpoc.dto.TransferFundsRequest;
-import com.jobanthind.bankingpoc.dto.TransferFundsResponse;
-import com.jobanthind.bankingpoc.model.Transaction;
+import com.jobanthind.bankingpoc.dto.TransactionHistoryResponseDTO;
+import com.jobanthind.bankingpoc.dto.TransferFundsRequestDTO;
+import com.jobanthind.bankingpoc.dto.TransferFundsResponseDTO;
 import com.jobanthind.bankingpoc.service.TransactionService;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Positive;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,6 +20,7 @@ import static com.jobanthind.bankingpoc.constants.TransactionApiUrls.TRANSFER_FU
 
 @RestController
 @RequestMapping
+@Validated
 public class TransactionController {
     private final TransactionService transactionService;
 
@@ -27,16 +30,16 @@ public class TransactionController {
     }
 
     @PostMapping(TRANSFER_FUNDS_URL)
-    public ResponseEntity<TransferFundsResponse> transferFunds(@RequestBody TransferFundsRequest request) {
-        TransferFundsResponse response = transactionService.transferFunds(request);
+    public ResponseEntity<TransferFundsResponseDTO> transferFunds(@Valid @RequestBody TransferFundsRequestDTO request) {
+        TransferFundsResponseDTO response = transactionService.transferFunds(request);
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     @GetMapping(TRANSACTION_HISTORY_URL)
-    public ResponseEntity<List<TransactionHistoryResponse>> getTransactionHistory(@PathVariable Long accountId) {
-        List<TransactionHistoryResponse> response = transactionService.getTransactionHistory(accountId)
+    public ResponseEntity<List<TransactionHistoryResponseDTO>> getTransactionHistory(@PathVariable @Positive Long accountId) {
+        List<TransactionHistoryResponseDTO> response = transactionService.getTransactionHistory(accountId)
                 .stream()
-                .map(transaction -> new TransactionHistoryResponse(
+                .map(transaction -> new TransactionHistoryResponseDTO(
                         transaction.getTxnId(),
                         transaction.getAmount(),
                         transaction.getBalance(),

@@ -1,9 +1,8 @@
 package com.jobanthind.bankingpoc.service;
 
 import com.jobanthind.bankingpoc.constants.TransactionType;
-import com.jobanthind.bankingpoc.dto.CreateAccountResponse;
-import com.jobanthind.bankingpoc.dto.TransferFundsRequest;
-import com.jobanthind.bankingpoc.dto.TransferFundsResponse;
+import com.jobanthind.bankingpoc.dto.TransferFundsRequestDTO;
+import com.jobanthind.bankingpoc.dto.TransferFundsResponseDTO;
 import com.jobanthind.bankingpoc.exception.AccountNotFoundException;
 import com.jobanthind.bankingpoc.exception.InsufficientBalanceException;
 import com.jobanthind.bankingpoc.exception.SameAccountTransferException;
@@ -34,7 +33,7 @@ public class TransactionService {
     }
 
     @Transactional
-    public TransferFundsResponse transferFunds(@RequestBody TransferFundsRequest request) {
+    public TransferFundsResponseDTO transferFunds(@RequestBody TransferFundsRequestDTO request) {
         if(request.getSenderEmail().equals(request.getReceiverEmail())){
             throw new SameAccountTransferException("Sender and receiver email addresses cannot be the same.");
         }
@@ -57,7 +56,7 @@ public class TransactionService {
         UUID txnId = UUID.randomUUID();
         transactionRepository.save(new Transaction(senderAccount.getId(), TransactionType.DEBIT, amount, "SUCCESS",txnId,senderAccount.getBalance()));
         transactionRepository.save(new Transaction(receiverAccount.getId(), TransactionType.CREDIT, amount, "SUCCESS",txnId,receiverAccount.getBalance()));
-        return TransferFundsResponse.builder()
+        return TransferFundsResponseDTO.builder()
                 .txnId(txnId)
                 .amount(request.getAmount())
                 .senderEmail(request.getSenderEmail())

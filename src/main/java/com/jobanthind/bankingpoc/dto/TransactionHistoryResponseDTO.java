@@ -12,7 +12,7 @@ import java.util.UUID;
 @Builder
 @Getter
 @Setter
-public class TransactionHistoryResponse {
+public class TransactionHistoryResponseDTO {
     UUID txnId;
     BigDecimal amount;
     BigDecimal balance;
@@ -20,7 +20,7 @@ public class TransactionHistoryResponse {
     String status;
     LocalDateTime timeStamp;
 
-    public TransactionHistoryResponse(UUID txnId, BigDecimal amount, BigDecimal balance, TransactionType transactionType, String status, LocalDateTime timeStamp) {
+    public TransactionHistoryResponseDTO(UUID txnId, BigDecimal amount, BigDecimal balance, TransactionType transactionType, String status, LocalDateTime timeStamp) {
         this.txnId = txnId;
         this.amount = amount;
         this.balance = balance;

@@ -4,11 +4,11 @@
 
 1. **Clone the Repository**
 
-   ```bash
+```bash
 https://github.com/JobanThind/bankingpoc.git
-Build and Run the server.java file
+```
 
-
+2. Build and Run the server.java file
 The application will run on http://localhost:8080 by default.
 
 Configuring the Database
